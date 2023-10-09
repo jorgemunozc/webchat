@@ -1,5 +1,7 @@
 <?php
 
+use App\Livewire\CreateChatMessage;
+use App\Livewire\ShowChat;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/send', CreateChatMessage::class);
+Route::get('/chat/{chat}', ShowChat::class);

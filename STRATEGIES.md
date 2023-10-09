@@ -1,0 +1,1 @@
+friendship will be represented in one column where user's ids will be userA_id < userB_id;

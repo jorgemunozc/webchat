@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('friendships', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('userA_id');
-            $table->unsignedBigInteger('userB_id');
-            $table->foreign('userA_id')
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('friend_id');
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users');
-            $table->foreign('userB_id')
+            $table->foreign('friend_id')
                 ->references('id')
                 ->on('users');
             $table->timestamps();

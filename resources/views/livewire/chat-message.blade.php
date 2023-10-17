@@ -1,6 +1,6 @@
-<div class="border bg-yellow-100 max-w-sm relative">
-    <div >
+<div class="border max-w-sm relative {{$this->isOwnMessage? 'bg-green-200': 'bg-yellow-200'}}">
+    <div>
         {{$message->content}}
     </div>
-    <small class="text-right w-full block">{{$message->created_at}}</small>
+    <small class="text-right w-full block">{{$date->toDayDateTimeString()}}</small>
 </div>

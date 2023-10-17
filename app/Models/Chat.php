@@ -10,6 +10,8 @@ class Chat extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['userA_id', 'userB_id'];
+
     /**
      * @return HasMany<Message>
      */

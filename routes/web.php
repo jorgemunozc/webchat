@@ -1,6 +1,8 @@
 <?php
 
 use App\Livewire\CreateChatMessage;
+use App\Livewire\Friends;
+use App\Livewire\Login;
 use App\Livewire\ShowChat;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/send', CreateChatMessage::class);
-Route::get('/chat/{chat}', ShowChat::class);
+Route::middleware('auth')->group(function () {
+    Route::get('/friends', Friends::class);
+    Route::get('/send', CreateChatMessage::class);
+    Route::get('/chat/{chat}', ShowChat::class);
+});
+Route::get('/login', Login::class)->name('login');

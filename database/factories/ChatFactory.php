@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Chat>
@@ -17,9 +18,16 @@ class ChatFactory extends Factory
      */
     public function definition(): array
     {
+        $userA = User::factory()->create();
+        $userB = User::factory()->create();
+        DB::table('friendships')->insert([
+            'user_id' => $userA->id,
+            'friend_id' => $userB->id,
+        ]);
+
         return [
-            'userA_id' => User::factory()->create()->id,
-            'userB_id' => User::factory()->create()->id,
+            'userA_id' => $userA->id,
+            'userB_id' => $userB->id,
         ];
     }
 }

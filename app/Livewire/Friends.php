@@ -14,7 +14,7 @@ class Friends extends Component
 {
     /** @return Collection<int, \App\Models\User> */
     #[Computed]
-    public function friends(): Collection
+    public function friends(): Collection|null
     {
         return Auth::user()?->friends();
     }

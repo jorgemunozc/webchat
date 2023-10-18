@@ -5,10 +5,12 @@ namespace App\Livewire;
 use App\Events\MessageSent;
 use App\Models\Message;
 use Illuminate\View\View;
+use Livewire\Attributes\Rule;
 use Livewire\Component;
 
 class CreateChatMessage extends Component
 {
+    #[Rule('required|string')]
     public string $message = '';
 
     public int $chatId = 0;
@@ -17,6 +19,7 @@ class CreateChatMessage extends Component
 
     public function save(): void
     {
+        $this->validate();
         $this->authorize('create', [Message::class, $this->chatId]);
         $message = new Message();
         $message->content = $this->message;

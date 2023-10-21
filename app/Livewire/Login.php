@@ -15,7 +15,7 @@ class Login extends Component
     #[Rule('required')]
     public string $password = '';
 
-    public function login()
+    public function login(): void
     {
         $credentials = [
             'username' => $this->username,
@@ -24,8 +24,12 @@ class Login extends Component
         if (Auth::attempt($credentials)) {
             session()->regenerate();
 
-            return $this->redirect('/friends');
+            $this->redirect('/friends');
+        } else {
+            session()->flash('error', 'Invalid credentials.');
+            $this->redirect('/login');
         }
+
     }
 
     public function render(): View

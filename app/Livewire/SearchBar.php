@@ -32,6 +32,16 @@ class SearchBar extends Component
         return User::where('visible_name', 'like', "%$this->search%")->get();
     }
 
+    public function sendFriendRequest(int $friendId): void
+    {
+        $currUser = Auth::user();
+        if ($currUser &&
+            $currUser->hasPendingFriendRequestWithUser($friendId)) {
+            return;
+        }
+        $currUser?->friendRequestsSent()->create(['target_id' => $friendId]);
+    }
+
     public function render(): View
     {
         return view('livewire.search-bar',

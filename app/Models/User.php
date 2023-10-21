@@ -4,7 +4,6 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use App\Enums\FriendRequestStatus;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -85,8 +85,32 @@ class User extends Authenticatable
         ]);
     }
 
-    public function pendingScope(Builder $query): void
+    public function hasPendingFriendRequestWithUser(int $userId): bool
     {
-        $query->where('status', FriendRequestStatus::Pending);
+        return
+        $this->friendRequests()->where('sender_id', $userId)->exists()
+        || $this->friendRequestsSent()->where('target_id', $userId)->exists();
+    }
+
+    public function isFriendWith(int $userId): bool
+    {
+        return DB::table('friendships')
+            ->where(fn (Builder $query) => $query->where('friend_id', $this->id)->where('user_id', $userId))
+            ->orWhere(fn (Builder $query) => $query->where('user_id', $userId)->where('friend_id', $this->id))
+            ->exists();
+    }
+
+    public function canRecieveFriendRequestFromUser(int $userId): bool
+    {
+        return ! $this->hasPendingFriendRequestWithUser($userId)
+            && ! $this->isFriendWith($userId);
+    }
+
+    public function befriend(int $userId): void
+    {
+        DB::table('frienships')->insert([
+            'user_id' => $this->id,
+            'friend_id' => $userId,
+        ]);
     }
 }

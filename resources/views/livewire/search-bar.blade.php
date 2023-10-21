@@ -9,8 +9,8 @@
         @foreach ($this->results as $result)
         <li>
             {{$result->visible_name}}
-            @unless(in_array($result->id, $friends))
-            <button class="bg-green-500">Send friend request</button>
+            @unless($result->hasPendingFriendRequestWithUser(Auth::user()->id))
+            <button class="bg-green-500" wire:click="sendFriendRequest({{$result->id}})">Send friend request</button>
             @endunless
         </li>
         @endforeach

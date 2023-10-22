@@ -3,7 +3,7 @@
 use App\Livewire\CreateChatMessage;
 use App\Livewire\Friends;
 use App\Livewire\Login;
-use App\Livewire\RequestReceived;
+use App\Livewire\RequestsReceived;
 use App\Livewire\ShowChat;
 use Illuminate\Support\Facades\Route;
 
@@ -18,10 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::middleware('auth')->group(function () {
-    // Route::redirect('/', '/friends');
+    Route::redirect('/', '/friends');
+    Route::redirect('/home', '/friends');
     Route::get('/friends', Friends::class);
     Route::get('/send', CreateChatMessage::class);
     Route::get('/chat/{chat}', ShowChat::class);
-    Route::get('/requests/received', RequestReceived::class);
+    Route::get('/requests/received', RequestsReceived::class);
 });
 Route::get('/login', Login::class)->name('login');

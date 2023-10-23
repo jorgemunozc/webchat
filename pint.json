@@ -1,0 +1,11 @@
+{
+    "rules": {
+        "declare_strict_types": true
+    },
+    "exclude": [
+        "config",
+        "database",
+        "bootstrap",
+        "public"
+    ]
+}

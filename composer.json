@@ -59,6 +59,9 @@
         "pint-test": [
             "pint --test"
         ],
+        "pint": [
+            "pint"
+        ],
         "lint": [
             "phpstan analyse"
         ]

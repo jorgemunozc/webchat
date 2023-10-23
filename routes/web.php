@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Livewire\CreateChatMessage;
 use App\Livewire\Friends;
 use App\Livewire\Login;

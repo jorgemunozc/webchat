@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire;
 
 use App\Models\Chat;
@@ -14,7 +16,7 @@ class Friends extends Component
 {
     /** @return Collection<int, \App\Models\User> */
     #[Computed]
-    public function friends(): Collection|null
+    public function friends(): ?Collection
     {
         return Auth::user()?->friends();
     }

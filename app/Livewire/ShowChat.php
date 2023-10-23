@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire;
 
 use App\Models\Chat;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -19,15 +22,17 @@ class ShowChat extends Component
 
     public bool $newMessageReceived = false;
 
+    public ?User $receiver;
     // /** @var Collection<int, \App\Models\Message> */
     // public Collection $messages;
 
-    public function mount(Chat $chat): void
+    public function mount(Chat $chat, User $receiver): void
     {
         $this->authorize('view', $chat);
         $this->$chat = $chat;
         $this->senderId = Auth::user()->id ?? $chat->userA_id;
         $this->receiverId = $chat->userA_id === $this->senderId ? $chat->userB_id : $chat->userA_id;
+        $this->receiver = User::find($this->receiverId);
         // $this->messages = $chat->messages;
     }
 

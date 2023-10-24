@@ -6,7 +6,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -62,7 +62,7 @@ class User extends Authenticatable
     }
 
     /** @return HasMany<FriendRequest> */
-    public function friendRequests(): HasMany
+    public function friendRequestsReceived(): HasMany
     {
         return $this->hasMany(FriendRequest::class, 'target_id');
     }
@@ -90,7 +90,7 @@ class User extends Authenticatable
     public function hasPendingFriendRequestWithUser(int $userId): bool
     {
         return
-        $this->friendRequests()->where('sender_id', $userId)->exists()
+        $this->friendRequestsReceived()->where('sender_id','=', $userId)->exists()
         || $this->friendRequestsSent()->where('target_id', $userId)->exists();
     }
 
@@ -102,7 +102,7 @@ class User extends Authenticatable
             ->exists();
     }
 
-    public function canRecieveFriendRequestFromUser(int $userId): bool
+    public function canReceiveFriendRequestFromUser(int $userId): bool
     {
         return ! $this->hasPendingFriendRequestWithUser($userId)
             && ! $this->isFriendWith($userId);
@@ -110,7 +110,7 @@ class User extends Authenticatable
 
     public function befriend(int $userId): void
     {
-        DB::table('frienships')->insert([
+        DB::table('friendships')->insert([
             'user_id' => $this->id,
             'friend_id' => $userId,
         ]);

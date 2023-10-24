@@ -7,6 +7,7 @@ namespace App\Livewire;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Attributes\Rule;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class Login extends Component
@@ -34,6 +35,7 @@ class Login extends Component
 
     }
 
+    #[Title('Login')]
     public function render(): View
     {
         return view('livewire.login');

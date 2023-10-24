@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
 class Friends extends Component
@@ -40,6 +41,7 @@ class Friends extends Component
         $this->redirect("/chat/{$chat->id}");
     }
 
+    #[Title('Friends')]
     public function render(): View
     {
         return view('livewire.friends');

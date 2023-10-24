@@ -1,11 +1,8 @@
-<main class="w-full h-screen flex flex-col px-2">
-    <div class="h-10 px-2 text-right text-xl font-semibold text-gray-600 bg-emerald-100">
+<main class="w-full flex flex-1 flex-col overflow-hidden">
+    <div class="h-12 flex-none px-2 text-right text-xl font-semibold text-gray-600 bg-emerald-100">
         {{$receiver->visible_name}}
     </div>
-    @if($newMessageReceived)
-    <div class="bg-red-100">Message received!!</div>
-    @endif
-    <ul class="flex flex-col flex-1 gap-8 overflow-auto px-2">
+    <ul class="grow flex flex-col gap-8 overflow-auto px-2 py-2">
         @foreach ($this->messages as $message)
         <livewire:chat-message :message="$message" wire:key="{{$message->id}}">
             @endforeach

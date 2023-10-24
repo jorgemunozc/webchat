@@ -31,7 +31,8 @@ class SearchBar extends Component
             return null;
         }
 
-        return User::where('visible_name', 'like', "%$this->search%")->get();
+        return User::where('visible_name', 'like', "%$this->search%")
+        ->whereNot('id', Auth::user()?->id)->get();
     }
 
     public function sendFriendRequest(int $friendId): void

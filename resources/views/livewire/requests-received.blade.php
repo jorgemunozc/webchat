@@ -1,4 +1,4 @@
-<div>
+<div class="w-full bg-gray-50 max-w-md">
     @foreach ($this->requests as $request)
     <div>{{$request->sender->visible_name}}</div>
     <button class="bg-green-400" wire:click="accept({{$request->id}})">Accept</button>

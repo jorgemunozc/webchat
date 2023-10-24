@@ -16,16 +16,10 @@ class RequestsReceived extends Component
     #[Computed]
     public function requests(): ?Collection
     {
-        return Auth::user()?->friendRequests->load('sender');
+        return Auth::user()?->friendRequestsReceived->load('sender');
     }
 
-    public function accept(int $requestId): void
-    {
-        // @phpstan-ignore-next-line
-        $request = $this->requests->find($requestId);
-        Auth::user()?->befriend($request->sender_id);
-        $request->delete();
-    }
+   
 
     public function render(): View
     {

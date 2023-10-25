@@ -12,9 +12,10 @@
             <div class="flex flex-col">
                 <label for="password" class="text-gray-500 font-semibold">Password</label>
                 <input type="password" name="password" id="password" wire:model="password"
-                    class="h-12 border outline-none px-2 focus:border-1 focus:border-blue-900">
+                    class="h-12 border outline-none px-2 focus:border-1 focus:border-blue-900 @error('password_confirmation') bg-red-500 @enderror">
             </div>
             <button type="submit" class="h-16 bg-emerald-500 w-full hover:bg-emerald-700 font-semibold">LOG IN</button>
+            <small><a href="/register" class="text-blue-600 font-semibold">Create an account</a></small>
         </div>
     </form>
     @if (session('error'))

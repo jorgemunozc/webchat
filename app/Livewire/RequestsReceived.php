@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class RequestsReceived extends Component
@@ -19,7 +20,11 @@ class RequestsReceived extends Component
         return Auth::user()?->friendRequestsReceived->load('sender');
     }
 
-   
+    #[On('request-processed')]
+    public function remove(): void
+    {
+        // unset($this->requests);
+    }
 
     public function render(): View
     {

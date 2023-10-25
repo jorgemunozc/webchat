@@ -1,5 +1,5 @@
 <div>
     @foreach ($this->requests as $friendRequest)
-    <livewire:friend-request-item :friend-request="$friendRequest" wire:key="{{$friendRequest->id}}" >
+    <livewire:friend-request-item type="sent" :friend-request="$friendRequest" wire:key="{{$friendRequest->id}}" >
         @endforeach
 </div>

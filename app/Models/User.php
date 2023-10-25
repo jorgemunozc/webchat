@@ -6,6 +6,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use Exception;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -90,7 +91,7 @@ class User extends Authenticatable
     public function hasPendingFriendRequestWithUser(int $userId): bool
     {
         return
-        $this->friendRequestsReceived()->where('sender_id','=', $userId)->exists()
+        $this->friendRequestsReceived()->where('sender_id', '=', $userId)->exists()
         || $this->friendRequestsSent()->where('target_id', $userId)->exists();
     }
 
@@ -110,6 +111,9 @@ class User extends Authenticatable
 
     public function befriend(int $userId): void
     {
+        if ($this->id === $userId) {
+            throw new Exception('Cannot befriend himself xD');
+        }
         DB::table('friendships')->insert([
             'user_id' => $this->id,
             'friend_id' => $userId,

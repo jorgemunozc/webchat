@@ -15,7 +15,7 @@ class FriendRequestItem extends Component
     public function accept(): void
     {
         $currentUser = Auth::user();
-        $userToBefriendId = $currentUser?->id === $this->friendRequest->sender_id ? $this->friendRequest->sender_id : $this->friendRequest->target_id;
+        $userToBefriendId = $currentUser?->id === $this->friendRequest->sender_id ? $this->friendRequest->target_id : $this->friendRequest->sender_id;
         $currentUser?->befriend($userToBefriendId);
         $this->friendRequest->delete();
         $this->dispatch($this->eventName);

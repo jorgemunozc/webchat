@@ -5,8 +5,9 @@ declare(strict_types=1);
 use App\Livewire\CreateChatMessage;
 use App\Livewire\Friends;
 use App\Livewire\Login;
-use App\Livewire\RequestsSent;
+use App\Livewire\Registration;
 use App\Livewire\RequestsReceived;
+use App\Livewire\RequestsSent;
 use App\Livewire\ShowChat;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +31,4 @@ Route::middleware('auth')->group(function () {
     Route::get('/requests/sent', RequestsSent::class);
 });
 Route::get('/login', Login::class)->name('login');
+route::get('/register', Registration::class);
